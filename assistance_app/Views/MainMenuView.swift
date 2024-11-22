@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAuth
 
 struct MainMenuView: View {
     var body: some View {
@@ -34,6 +35,14 @@ struct MainMenuView: View {
                     NavigationLink(destination: AttendanceListView()) {
                         MenuButton(icon: "doc.text.fill", text: "Ver registros de asistencia")
                     }
+    
+                    // Navegación a Ver Registros de Asistencia
+                    NavigationLink(destination: LoginView()) {
+                        MenuButton(icon: "arrow.right.circle.fill", text: "Salir")
+                        .onTapGesture {
+                            Logout()
+                        }
+                    }
                 }
                 Spacer()
             }
@@ -59,4 +68,13 @@ struct MenuButton: View {
         .background(Color("MainColor"))
         .cornerRadius(10)
     }
+}
+
+
+private func Logout() {
+    do {
+        try Auth.auth().signOut()
+    } catch let signOutError as NSError {
+        print("Error al cerrar sesión:")
+    }
 }

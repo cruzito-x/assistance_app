@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct assistance_appApp: App {
-    var body: some Scene {
-        WindowGroup {
-            LoginView()
-        }
-    }
+    @StateObject private var authViewModel = AuthViewModel()
+    
+    init() {
+            _ = FirebaseManager.shared
+    }
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(authViewModel)
+        }
+    }
 }
